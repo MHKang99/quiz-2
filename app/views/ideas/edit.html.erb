@@ -1,0 +1,13 @@
+<%= form_with model:@idea do |form| %>
+    <div>
+    <%= form.label :title, "Title"%>
+    <br>
+    <%= form.text_field :title%>
+    <br>
+    <%= form.label :body%>
+    <br>
+    <%= form.text_field :body%>
+    <br>
+    <%= form.submit "Update"%>
+    </div>
+<%end%>

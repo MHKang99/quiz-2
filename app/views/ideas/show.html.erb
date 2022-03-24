@@ -1,0 +1,65 @@
+
+
+<div class = "container">
+<h2> <%= @idea.title %> </h3>
+<p> <%= @idea.body %> </p>
+<p> Posted <%= time_ago_in_words(@idea.created_at) %> ago</p>
+<p> Created By <%= @username.name %> ago</p>
+</div>
+<div class = "container"> 
+<% if user_signed_in? %>
+    <% if @likes.present? %>
+        <%= button_to 'Unlike', idea_like_path(@idea.id, @likes.id), method: :delete %>
+    <% else %>
+        <%= button_to 'Like', idea_likes_path(@idea.id), method: :post %>
+    <% end %>
+<% else %>
+    <p>Please Sign in to Like this Idea</p>
+<% end %>
+<% if @current_user %>
+    <% if @current_user.id == @username.id %>
+        <%= button_to("Delete", idea_path, method: :delete)%> 
+        <%= link_to 'Edit', edit_idea_path(@idea) %> 
+    <% end %>
+<% end %>
+</div>
+<br>
+
+<div class = "container">
+    <% if user_signed_in? %>
+        <%= form_with(model:[@idea, @review]) do |form| %>
+        <h3>
+        <%= form.label :title, "Title of Your Review"%>
+        </h3>
+        <div>
+        <%= form.text_field :title, placeholder: "Title"%>
+        </div>
+        <h3>
+        <%= form.label :body, "Review Description"%>
+        </h3>
+        <div>
+        <%= form.text_field :body, placeholder: "Write your review"%>
+        </div>
+        <%= form.submit "Submit"  %>
+        <%end%>
+        <% else %>
+        <h3>Please Sign In to Create a review</h3>
+    <% end %>
+    
+</div>
+
+<% if @reviews %>
+    <% @reviews.each do |review| %>
+        <div class = "container">
+        <p> <%= review.title %> </p>
+        <p> <%= review.body %> </p>
+        <p> Created By <%= (User.find_by_id review.user_id).name %></p>
+        </div>
+    <% if user_signed_in? && current_user.id == review.user_id %>
+        <div class = "container">
+            <%= button_to("Delete", idea_review_path(@idea.id, review.id), method: :delete) %>
+    </div>
+    <% end %> 
+    <br>
+    <% end %>
+ <% end %>

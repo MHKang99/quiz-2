@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Quiz2</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <div class = "icon"> 
+  <h4 class = "idea-factory"> <a href = "<%= root_path %>" class = "nav-item"> Idea Factory </a></h4>
+  </div>
+  <hr>
+  <div class = "box"><h3 class = "nav-item1"> <%= link_to "New Idea", new_idea_path, class: "nav-item" %> </h3></div>
+    <div class = "user-options">
+    <%if(user_signed_in?) %>
+       <h2>Signed in as <%= current_user.name %> <%= button_to "Log out", sign_out_path, method: :delete, class: "logout" %></h2> 
+      
+    <% else %>
+    <div class = "user-options2" >
+      <%= link_to 'Sign In Page', session_new_path, class: "nav-item" %>
+      <%= link_to 'Sign Up Page', new_user_path, class: "nav-item"%>
+    </div>
+    <% end %>
+    </div>
+    
+    <%= yield %>
+  </body>
+</html>
