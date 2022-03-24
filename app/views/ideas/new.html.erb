@@ -1,0 +1,16 @@
+<h1>Ideas#new</h1>
+<p>Find me in app/views/ideas/new.html.erb</p>
+
+<%= form_with model:@idea do |form| %>
+    <div>
+    <%= form.label :title, "Title"%>
+    <br>
+    <%= form.text_field :title%>
+    <br>
+    <%= form.label :body%>
+    <br>
+    <%= form.text_field :body%>
+    <br>
+    <%= form.submit "Create"%>
+    </div>
+<%end%>

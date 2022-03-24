@@ -1,0 +1,9 @@
+
+<% @idea.each do |idea| %>
+    <div class = "container" >
+    <h3 class = "title" > <%= link_to idea.title, idea_path(idea.id), class: "title" %> </h3>
+    <p class = "preview" > <%= idea.body %> </p>
+    <p> likes <%= Like.where(idea_id: idea.id).count %> </p>
+    </div>
+    <br>
+<% end %>
